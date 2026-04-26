@@ -1,0 +1,85 @@
+students = {}
+weights = {
+    "EAP": 0.25,
+    "Math": 0.15,
+    "Physics": 0.15,
+    "Programming": 0.15
+}
+def add_student():
+    name = input("Enter student name: ")
+    try:
+        eap = float(input("Enter EAP score: "))
+        math = float(input("Enter Math score: "))
+        physics = float(input("Enter Physics score: "))
+        programming = float(input("Enter Programming score: "))
+        total = (
+            eap * weights["EAP"] +
+            math * weights["Math"] +
+            physics * weights["Physics"] +
+            programming * weights["Programming"]
+        )
+        students[name] = {
+            "EAP": eap,
+            "Math": math,
+            "Physics": physics,
+            "Programming": programming,
+            "Total": total
+        }
+        print("Student added successfully!\n")
+    except ValueError:
+        print("Invalid input! Please enter numbers only.\n")
+def display_students():
+    if not students:
+        print("No student records found.\n")
+    else:
+        print("\nStudent Records:")
+        for name, info in students.items():
+            print(f"\n{name}:")
+            print(f"  EAP: {info['EAP']}")
+            print(f"  Math: {info['Math']}")
+            print(f"  Physics: {info['Physics']}")
+            print(f"  Programming: {info['Programming']}")
+            print(f"  Total (Weighted): {info['Total']:.2f}")
+        print()
+def search_student():
+    name = input("Enter student name to search: ")
+    if name in students:
+        info = students[name]
+        print(f"\n{name}'s Record:")
+        print(f"  EAP: {info['EAP']}")
+        print(f"  Math: {info['Math']}")
+        print(f"  Physics: {info['Physics']}")
+        print(f"  Programming: {info['Programming']}")
+        print(f"  Total (Weighted): {info['Total']:.2f}\n")
+    else:
+        print("Student not found.\n")
+def delete_student():
+    name = input("Enter student name to delete: ")
+    if name in students:
+        del students[name]
+        print("Student deleted successfully.\n")
+    else:
+        print("Student not found.\n")
+def menu():
+    while True:
+        print("====== Student Grade Manager ======")
+        print("1. Add Student")
+        print("2. Display Students")
+        print("3. Search Student")
+        print("4. Delete Student")
+        print("5. Exit")
+        choice = input("Choose an option (1-5): ")
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            display_students()
+        elif choice == "3":
+            search_student()
+        elif choice == "4":
+            delete_student()
+        elif choice == "5":
+            print("Exiting program. Goodbye!")
+            break
+        else:
+            print("Invalid choice! Try again.\n")
+menu()
